@@ -1,68 +1,11 @@
-# qrcode
 
-## install 
+# encoding=utf-8
 
-```
-    pip install qrcode
-    pip install image
-```
-
-
-## easy create 
-
-
-``` python
-import qrcode 
-//調用 qrcode.make() 方法傳入url 或者是想要顯示的內容
-img = qrcode.make('http://www.baidu.com')
-with open('test.png', 'wb') as f:
-    img.save(f)
-    
-```
-
-
-
-## create by parameter
-
-
-``` python
-import qrcode
-
-data = 'https://www.google.com.tw/'
-img_file = r'test.png'
-
-
-qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_H,
-    box_size=10,
-    border=4
-)
-傳入數據
-qr.add_data(data)
-
-qr.make(fit=True)
-
-#生成二維條碼
-img = qr.make_image()
-
-保存
-img.save(img_file)
-
-img.show()
-    
-```
-
-
-## add picture 
-
-
-``` python
 import qrcode
 from PIL import Image
 
 def getQRcode(data, file_name,icon_image=None):
-    #實體化
+    #�����
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -70,12 +13,12 @@ def getQRcode(data, file_name,icon_image=None):
         border=4,
     )
 
-    #傳入數據
+    #�ǤJ�ƾ�
     qr.add_data(data)
    
     qr.make(fit=True)
    
-    #生成二維條碼
+    #�ͦ��G�����X
     img = qr.make_image(fill_color="blue", back_color="white")
 
     if icon_image:
@@ -109,5 +52,3 @@ def add_image(img,icon_image):
     return img
     
 getQRcode('https://www.sercomm.com/home.aspx','test.png','icon.png')
-    
-```
