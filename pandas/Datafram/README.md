@@ -143,7 +143,7 @@ df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport']
 
 ### 讀取DataFrame
 
-### df['col_name']
+#### df['col_name']
 
 ```
 >>> df['Name']
@@ -160,7 +160,7 @@ Name: Name, dtype: object
 ```
 
 
-### df.iloc[row][col]
+#### df.iloc[row][col]
 用法跟python 切割一樣
 ```
 >>> df.iloc[0]
@@ -185,7 +185,7 @@ Name: 0, dtype: object
 ```
 
 
-### df.loc[row_name][col_name]
+#### df.loc[row_name][col_name]
 用法跟df.iloc 類似但是使用名稱
 ```
 >>> df.loc[0]
