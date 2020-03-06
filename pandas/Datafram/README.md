@@ -75,7 +75,6 @@ Output:
 2  Green    80         50       40       80       50
 ```
 
-
 ## DataFrame 操作
 
 ### 資料描述查看
@@ -254,6 +253,12 @@ ax = data.plot(kind="line",grid=True).set_title("ATTENUATOR vs ThroughtPut")
 plt.show()
             
 ```
+
+
+## 讀取外部資料
+
+### 讀取DataFrame
+
 
 
 
