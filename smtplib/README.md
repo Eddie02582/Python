@@ -1,32 +1,34 @@
 # smtplib
 
+
+
 ## 寄信
 
 
 ``` python
 import smtplib
 from email.mime.text import MIMEText
-from email.header import Header
+from email.header import Header  
 
-mail_host = "mail server ip"  
+receivers_email = ["james@ttt.com"]
+receivers_name = []
+carbon_copy_email = []
+carbon_copy_name = []
+subject = "Test"
+content = "Test Message"
+
+mail_host= "172.31.7.240"  
 mail_user= ""    
 mail_pass= ""  
 
-sender = 'from@ttt.com'
+sender = 'eddie@ttt.com'  
+receivers_email = carbon_copy_email + receivers_email       
 
-receivers_email = ["Eddie_Chuang@ttt.com","Admin@ttt.com"]
-receivers_name = ["Eddie"]
-carbon_copy_name = ["Admin"]
-msg = "測試"
-
-message = MIMEText(msg, 'plain', 'utf-8')
+message = MIMEText(content, 'plain', 'utf-8')    
 message['Subject'] = Header(subject, 'utf-8')
-message['From'] = Header("Sercomm SEPU Web", 'utf-8')
+message['From'] = Header("Eddie", 'utf-8')
 message['To'] =  Header(','.join(receivers_name), 'utf-8')
-message['CC'] =  Header(','.join(carbon_copy_name), 'utf-8')
-
-
-
+message['CC'] =  Header(','.join(carbon_copy_name), 'utf-8') 
 
 try:
     smtpObj = smtplib.SMTP() 
@@ -34,36 +36,35 @@ try:
     #smtpObj.login(mail_user,mail_pass)       
     smtpObj.sendmail(sender, receivers_email, message.as_string())        
 except smtplib.SMTPException:
-    print ("Error:")    
-    
+    print ("Error:")  
 ```
 
+如果要發送html格式將 MIMEText 'plain',修改成'html' 格式
+
+```
+content = "<p>Hi All</p>"
+message = MIMEText(content, 'html', 'utf-8') 
+
+```
+
+
 ## 夾檔
+
 如要夾檔請用MIMEMultipart
+
 ``` python
 
-mail_host = "mail server ip"  
-mail_user= ""    
-mail_pass= ""  
-
-sender = 'from@ttt.com'
-
-
-receivers_email = ["Eddie_Chuang@ttt.com","Admin@ttt.com"]
-receivers_name = ["Eddie"]
-carbon_copy_name = ["Admin"]
 
 message = MIMEMultipart()
-
 message['Subject'] = Header(subject, 'utf-8')
-message['From'] = Header("Sercomm SEPU Web", 'utf-8')
+message['From'] = Header("Eddie", 'utf-8')
 message['To'] =  Header(','.join(receivers_name), 'utf-8')
-message['CC'] =  Header(','.join(carbon_copy_name), 'utf-8')
+message['CC'] =  Header(','.join(carbon_copy_name), 'utf-8') 
+
+
 message.attach(MIMEText(msg, 'plain', 'utf-8'))
 
-
-
-fp = open(file, 'rb')
+fp = open(filePath, 'rb')
 filename = os.path.basename(file)
 attach = MIMEText(fp.read(), 'base64', 'utf-8')
 attach["Content-Type"] = 'application/octet-stream'
@@ -76,7 +77,32 @@ try:
     #smtpObj.login(mail_user,mail_pass)       
     smtpObj.sendmail(sender, receivers_email, message.as_string())        
 except smtplib.SMTPException:
-    print ("Error:")    
-    
+    print ("Error:")       
     
 ```
+
+夾圖檔
+
+``` python
+
+from email.MIMEImage import MIMEImage
+
+message = MIMEMultipart()
+message['Subject'] = Header(subject, 'utf-8')
+message['From'] = Header("Eddie", 'utf-8')
+message['To'] =  Header(','.join(receivers_name), 'utf-8')
+message['CC'] =  Header(','.join(carbon_copy_name), 'utf-8') 
+
+fp = open('test.jpg', 'rb')
+message = MIMEImage(fp.read())
+fp.close()
+msgImage.add_header('Content-ID', '<image1>')
+message.attach(msgImage)   
+    
+```
+
+如果圖片是要顯示在html,請在html新增
+```
+<img src="cid:image1"></img>
+```
+
