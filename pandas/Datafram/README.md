@@ -107,8 +107,7 @@ df.columns
 Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='object')
 -----------------------------------------------------
 ```
-### DataFrame操作
-
+### DataFrame一般操作
 
 
 #### df.rename(rename_dic, axis=1)
@@ -134,15 +133,9 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport'] 
 ```
 
+### DataFrame 資料選取
 
-
-
-
-
-
-### 讀取DataFrame
-
-#### df['col_name']
+#### df['col_name'] or df[['col_name1','col_name2']]
 
 ```
 >>> df['Name']
@@ -158,9 +151,9 @@ Name: Name, dtype: object
 2  Green    80
 ```
 
+#### df.iloc
 
-#### df.iloc[row][col]
-用法跟python 切割一樣
+##### df.iloc[row][col]
 ```
 >>> df.iloc[0]
 Name         James
@@ -170,21 +163,39 @@ Chinese         40
 physics         40
 English         60
 Name: 0, dtype: object
+
 >>> df.iloc[0][1]
 85
->>> df.iloc[:,0:2]
-    Name  Math
-0  James    85
-1  Davis    90
-2  Green    80
+```
+##### df.iloc[row_array,col_array]
+
+```
+>>> df.iloc[[0,2]]
+   Chemistry  Chinese  English  Math   Name  physics
+0         90       40       60    85  James       40
+2         50       40       50    80  Green       80
+>>> df.iloc[[0,2],[0,1]]
+   Chemistry  Chinese
+0         90       40
+2         50       40
+>>> df.iloc[[0,2],[0,1]]
+```
+
+##### df.iloc 切片
+```
+>>> df.iloc[:2,0:2]
+   Chemistry  Chinese
+0         90       40
+1         70       45
+```
+```
 >>> df.iloc[1:3,:]
     Name  Math  Chemistry  Chinese  physics  English
 1  Davis    90         70       45       30       70
 2  Green    80         50       40       80       50
 ```
 
-
-#### df.loc[row_name][col_name]
+#### df.loc[row_index]/df.loc[row_index][col_name]
 用法跟df.iloc 類似但是使用名稱
 ```
 >>> df.loc[0]
@@ -207,8 +218,46 @@ Name: 0, dtype: object
 1  Davis    90         70       45       30       70
 2  Green    80         50       40       80       50
 >>>
-
 ```
+
+### DataFrame 資料過濾
+
+#### df[col_name].isin(array)
+判斷col_name 値是否在array內,回傳格式如下
+```
+>>> df["Name"].isin(["James","Davis"])
+0     True
+1     True
+2    False
+Name: Name, dtype: bool
+```
+
+使用方式如下
+```
+>>> filter = df["Name"].isin(["James","Davis"])
+>>> df[filter]
+   Chemistry  Chinese  English  Math   Name  physics
+0         90       40       60    85  James       40
+1         70       45       70    90  Davis       30
+```
+
+#### df[col_name].str.contains(str, na=False)  
+```
+>>> filter = df["Name"].str.contains("s", na=False)
+>>> df[filter]
+   Chemistry  Chinese  English  Math   Name  physics
+0         90       40       60    85  James       40
+1         70       45       70    90  Davis       30
+```
+
+#### df[col_name].lt (lt,le,gt,ge,eq)
+```
+>>> df[df["English"].le(60)]
+   Chemistry  Chinese  English  Math   Name  physics
+0         90       40       60    85  James       40
+2         50       40       50    80  Green       80
+```
+
 
 
 ### Piviot
