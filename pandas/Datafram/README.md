@@ -133,6 +133,17 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport'] 
 ```
 
+#### <a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">df.sort_values</a>
+
+
+```
+>>> df.sort_values(by=['Chinese','Chemistry'])
+   Chemistry  Chinese  English  Math   Name  physics
+2         50       40       50    80  Green       80
+0         90       40       60    85  James       40
+1         70       45       70    90  Davis       30
+```
+
 ### DataFrame 資料選取
 
 #### df['col_name'] or df[['col_name1','col_name2']]
