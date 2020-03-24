@@ -133,8 +133,8 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport'] 
 ```
 
-#### <a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">df.sort_values</a>
-
+#### df.sort_values
+<a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">詳細連結</a>
 
 ```
 >>> df.sort_values(by=['Chinese','Chemistry'])
