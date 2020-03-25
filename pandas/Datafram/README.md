@@ -139,7 +139,7 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 
 
 
-##資料選取
+## 資料選取
 
 ### DataFrame.head(n)
 
@@ -311,6 +311,15 @@ Name: 0, dtype: object
 
 ## DataFrame 資料filter
 使用方法df [條件]
+### 一般使用
+```
+>>> df[(df["EFF"] > 30) & (df["PTS"] > 28)]
+   #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
+0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
+2  3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7  5.8  1.0  1.0  3.7  34.8
+5  6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3  8.7  1.1  0.2  4.2  30.4
+>>>
+```
 
 ### 使用lambda
 
