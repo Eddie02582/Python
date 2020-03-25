@@ -75,9 +75,8 @@ Output:
 2  Green    80         50       40       80       50
 ```
 
-## DataFrame 操作
+## DataFrame 資料描述查看
 
-### 資料描述查看
 <ul>
     <li>shape</li>
     <li>describe()</li>
@@ -107,46 +106,11 @@ df.columns
 Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='object')
 -----------------------------------------------------
 ```
-### DataFrame一般操作
 
 
-#### df.rename(rename_dic, axis=1)
-用來修改欄位名稱,詳情可以參考<a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html">df.rename</a>
+## DataFrame 資料選取
 
-```
-#指定修改col
->>> df.rename(columns = {'Name':'First Name','English':"Sport"})
-  First Name  Math  Chemistry  Chinese  physics  Sport
-0      James    85         90       40       40     60
-1      Davis    90         70       45       30     70
-2      Green    80         50       40       80     50
-
-#透過設定axis=1 指定修改col,axis = 0 為index
-
->>> df.rename({'Name':'First Name','English':"Sport"},axis=1)
-  First Name  Math  Chemistry  Chinese  physics  Sport
-0      James    85         90       40       40     60
-1      Davis    90         70       45       30     70
-2      Green    80         50       40       80     50
-
-#也可以使用
-df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport'] 
-```
-
-#### df.sort_values
-<a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">詳細連結</a>
-
-```
->>> df.sort_values(by=['Chinese','Chemistry'])
-   Chemistry  Chinese  English  Math   Name  physics
-2         50       40       50    80  Green       80
-0         90       40       60    85  James       40
-1         70       45       70    90  Davis       30
-```
-
-### DataFrame 資料選取
-
-#### df['col_name'] or df[['col_name1','col_name2']]
+### df['col_name'] or df[['col_name1','col_name2']]
 
 ```
 >>> df['Name']
@@ -162,9 +126,9 @@ Name: Name, dtype: object
 2  Green    80
 ```
 
-#### df.iloc
+### df.iloc
 
-##### df.iloc[row][col]
+#### df.iloc[row][col]
 ```
 >>> df.iloc[0]
 Name         James
@@ -178,7 +142,7 @@ Name: 0, dtype: object
 >>> df.iloc[0][1]
 85
 ```
-##### df.iloc[row_array,col_array]
+#### df.iloc[row_array,col_array]
 
 ```
 >>> df.iloc[[0,2]]
@@ -192,7 +156,7 @@ Name: 0, dtype: object
 >>> df.iloc[[0,2],[0,1]]
 ```
 
-##### df.iloc 切片
+#### df.iloc 切片
 ```
 >>> df.iloc[:2,0:2]
    Chemistry  Chinese
@@ -231,12 +195,21 @@ Name: 0, dtype: object
 >>>
 ```
 
-### DataFrame 資料過濾
+## DataFrame Series資料過濾
 
-#### df[col_name].isin(array)
-判斷col_name 値是否在array內,回傳格式如下
+
+### df[col_name].isin(array)
 ```
 >>> df["Name"].isin(["James","Davis"])
+0     True
+1     True
+2    False
+Name: Name, dtype: bool
+```
+
+也可以使用
+```
+>>> df.Name.isin(["James","Davis"])
 0     True
 1     True
 2    False
@@ -252,7 +225,7 @@ Name: Name, dtype: bool
 1         70       45       70    90  Davis       30
 ```
 
-#### df[col_name].str.contains(str, na=False)  
+### df[col_name].str.contains(str, na=False)  
 ```
 >>> filter = df["Name"].str.contains("s", na=False)
 >>> df[filter]
@@ -261,7 +234,7 @@ Name: Name, dtype: bool
 1         70       45       70    90  Davis       30
 ```
 
-#### df[col_name].lt (lt,le,gt,ge,eq)
+### df[col_name].lt (lt,le,gt,ge,eq)
 ```
 >>> df[df["English"].le(60)]
    Chemistry  Chinese  English  Math   Name  physics
@@ -270,8 +243,45 @@ Name: Name, dtype: bool
 ```
 
 
+## DataFrame其他相關操作
 
-### Piviot
+
+### df.rename(rename_dic, axis=1)
+用來修改欄位名稱,詳情可以參考<a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html">df.rename</a>
+
+```
+#指定修改col
+>>> df.rename(columns = {'Name':'First Name','English':"Sport"})
+  First Name  Math  Chemistry  Chinese  physics  Sport
+0      James    85         90       40       40     60
+1      Davis    90         70       45       30     70
+2      Green    80         50       40       80     50
+
+#透過設定axis=1 指定修改col,axis = 0 為index
+
+>>> df.rename({'Name':'First Name','English':"Sport"},axis=1)
+  First Name  Math  Chemistry  Chinese  physics  Sport
+0      James    85         90       40       40     60
+1      Davis    90         70       45       30     70
+2      Green    80         50       40       80     50
+
+#也可以使用
+df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport'] 
+```
+
+### df.sort_values
+<a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">詳細連結</a>
+
+```
+>>> df.sort_values(by=['Chinese','Chemistry'])
+   Chemistry  Chinese  English  Math   Name  physics
+2         50       40       50    80  Green       80
+0         90       40       60    85  James       40
+1         70       45       70    90  Davis       30
+```
+
+
+## Piviot
 
 ```
 import numpy as np
