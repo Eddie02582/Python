@@ -26,7 +26,8 @@ Output :
 ```
 subjects = ["Math", "Chemistry", "Chinese","physics","English"]  
 scores = [85, 90, 40, 40, 60]  
-map  = {"subject": subject,  
+map  = {
+        "subject": subject,  
         "scores": scores
        }
 
@@ -113,9 +114,9 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 
 ## 讀取外部資料
 <ul>
-    <li>read_csv</li>
-    <li>read_html</li>
-    <li>read_excel</li> 
+    <li>read csv</li>
+    <li>read html</li>
+    <li>read excel</li> 
 </ul>
 
 ## read_csv
@@ -135,7 +136,18 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 9   10             Devin Booker  62  36.1  26.1   8.8  18.0  48.7  ...   0.4   3.7   4.2   6.6  0.7  0.3  3.9  24.0
 10  11             LeBron James  60  34.9  25.7   9.8  19.6  49.8  ...   1.0   6.9   7.9  10.6  1.2  0.5  4.0  30.4
 .......
+
+
 ```
+
+## read_excel
+```
+xl= pd.ExcelFile(path)
+sheet_name = xl.sheet_names[0]
+df = xl.parse(sheet_name,header)
+
+```
+
 
 
 
@@ -488,6 +500,27 @@ df.columns = ['First Name','Math','Chemistry','Chinese','physics','Sport']
 ```
 
 
+### df.set_index
+
+```
+>>> df.set_index(["#"])
+                     Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB   AST  STL  BLK  TOV   EFF
+#
+1              James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4   7.4  1.7  0.9  4.5  31.8
+2              Bradley Beal  57  36.0  30.5  10.4  22.9  45.5  3.0   8.4  35.3   6.8   8.0  84.2   0.9   3.3   4.2   6.1  1.2  0.4  3.4  25.4
+3     Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7   5.8  1.0  1.0  3.7  34.8
+4                Trae Young  60  35.3  29.6   9.1  20.8  43.7  3.4   9.5  36.1   8.0   9.3  86.0   0.5   3.7   4.3   9.3  1.1  0.1  4.8  26.6
+5            Damian Lillard  58  36.9  28.9   9.2  20.0  45.7  3.9   9.9  39.4   6.7   7.6  88.8   0.5   3.8   4.3   7.8  1.0  0.4  2.9  27.8
+6               Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3   8.7  1.1  0.2  4.2  30.4
+7         Russell Westbrook  53  35.9  27.5  10.7  22.6  47.4  1.0   3.8  25.4   5.1   6.5  77.7   1.8   6.3   8.0   7.0  1.7  0.3  4.5  26.7
+8             Kawhi Leonard  51  32.2  26.9   9.3  19.9  46.9  2.1   5.7  36.6   6.1   6.9  88.9   1.0   6.3   7.3   5.0  1.8  0.6  2.7  27.5
+9             Anthony Davis  55  34.3  26.7   9.2  18.1  51.1  1.2   3.5  33.5   7.0   8.3  84.5   2.3   7.1   9.4   3.1  1.5  2.4  2.5  30.5
+
+```
+### df.fillna("")   
+```
+df.fillna("")   
+```
 ## Piviot
 
 ```
