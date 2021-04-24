@@ -5,7 +5,6 @@
 
 ```
 	pip install xlrd
-
 ```
 
 ```python 
@@ -43,7 +42,6 @@ worksheet.ncols
 
 ```
 	pip install xlwt
-
 ```
 
 
