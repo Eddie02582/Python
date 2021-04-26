@@ -6,118 +6,12 @@
 
 <ul>
     <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_1.ipynb">How to create data and get attributes</a><li/>
+    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_1.ipynb">Read data and Data selection and filter</a><li/>
 </ul>
 
 
 
-## 建立DataFrame
 
-### array
-```python
-arr = [["Math",85], ["Chemistry",90], ["Chinese",40],["physics",40],["English",60]]
-df = pd.DataFrame(map, columns = ["subject", "scores"])# 指定欄標籤名稱  
-
-```
-
-Output :
-```
-      subject  scores
-0       Math      85
-1  Chemistry      90
-2    Chinese      40
-3    physics      40
-4    English      60
-```
-
-
-### dictionary
-```python
-subjects = ["Math", "Chemistry", "Chinese","physics","English"]  
-scores = [85, 90, 40, 40, 60]  
-map  = {
-        "subject": subject,  
-        "scores": scores
-       }
-
-df = pd.DataFrame(map)
-```
-
-Output :
-```
-      subject  scores
-0       Math      85
-1  Chemistry      90
-2    Chinese      40
-3    physics      40
-4    English      60
-```
-若使用col,則是選擇dict to df 的欄位
-```
-pd.DataFrame(map,columns = ["subject"])
-```
-
-
-Output:
-```
-     subject
-0       Math
-1  Chemistry
-2    Chinese
-3    physics
-4    English
-```
-
-### dictionary array
-
-
-```python
-map  = [{ 'Name':'James','Math': 85,'Chemistry': 90,'Chinese': 40,'physics':40,'English': 60},
-        { 'Name':'Davis','Math': 90,'Chemistry': 70,'Chinese': 45,'physics': 30, 'English': 70},
-        { 'Name':'Green','Math': 80,'Chemistry': 50,'Chinese': 40,'physics': 80, 'English': 50},
-       ]
-  
-df = pd.DataFrame(map,columns = ['Name','Math','Chemistry','Chinese','physics','English'])
-```
-
-Output:
-```python
-    Name  Math  Chemistry  Chinese  physics  English
-0  James    85         90       40       40       60
-1  Davis    90         70       45       30       70
-2  Green    80         50       40       80       50
-```
-
-## Attributes and underlying data
-
-<ul>
-    <li>shape</li>
-    <li>describe()</li>  
-    <li>columns</li>
-    <li>index</li>
-    <li>empty</li>
-</ul>
-head,tail使用python slice 就可以取代
-
-```
------------------------------------------------------
-df.shape
-(3, 6)
------------------------------------------------------
-df.describe()
-       Math  Chemistry    Chinese    physics  English
-count   3.0        3.0   3.000000   3.000000      3.0
-mean   85.0       70.0  41.666667  50.000000     60.0
-std     5.0       20.0   2.886751  26.457513     10.0
-min    80.0       50.0  40.000000  30.000000     50.0
-25%    82.5       60.0  40.000000  35.000000     55.0
-50%    85.0       70.0  40.000000  40.000000     60.0
-75%    87.5       80.0  42.500000  60.000000     65.0
-max    90.0       90.0  45.000000  80.000000     70.0
------------------------------------------------------
-df.columns
-Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='object')
------------------------------------------------------
-```
 
 
 ## 讀取外部資料
