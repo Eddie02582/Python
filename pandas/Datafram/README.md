@@ -5,7 +5,7 @@
 ## 建立DataFrame
 
 ### array
-```
+```python
 arr = [["Math",85], ["Chemistry",90], ["Chinese",40],["physics",40],["English",60]]
 df = pd.DataFrame(map, columns = ["subject", "scores"])# 指定欄標籤名稱  
 
@@ -23,7 +23,7 @@ Output :
 
 
 ### dictionary
-```
+```python
 subjects = ["Math", "Chemistry", "Chinese","physics","English"]  
 scores = [85, 90, 40, 40, 60]  
 map  = {
@@ -62,7 +62,7 @@ Output:
 ### dictionary array
 
 
-```
+```python
 map  = [{ 'Name':'James','Math': 85,'Chemistry': 90,'Chinese': 40,'physics':40,'English': 60},
         { 'Name':'Davis','Math': 90,'Chemistry': 70,'Chinese': 45,'physics': 30, 'English': 70},
         { 'Name':'Green','Math': 80,'Chemistry': 50,'Chinese': 40,'physics': 80, 'English': 50},
@@ -72,7 +72,7 @@ df = pd.DataFrame(map,columns = ['Name','Math','Chemistry','Chinese','physics','
 ```
 
 Output:
-```
+```python
     Name  Math  Chemistry  Chinese  physics  English
 0  James    85         90       40       40       60
 1  Davis    90         70       45       30       70
@@ -121,7 +121,7 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 
 ## read_csv
 
-```
+```python
 >>> pd.read_csv(path)
      #                   Player  GP   MIN   PTS   FGM   FGA   FG%  ...  OREB  DREB   REB   AST  STL  BLK  TOV   EFF
 0    1             James Harden  61  36.7  34.4   9.9  22.7  43.5  ...   1.0   5.3   6.4   7.4  1.7  0.9  4.5  31.8
@@ -141,7 +141,7 @@ Index(['Name', 'Math', 'Chemistry', 'Chinese', 'physics', 'English'], dtype='obj
 ```
 
 ## read_excel
-```
+```python
 xl= pd.ExcelFile(path)
 sheet_name = xl.sheet_names[0]
 df = xl.parse(sheet_name,header)
@@ -156,7 +156,7 @@ df = xl.parse(sheet_name,header)
 ### DataFrame.head(n)
 
 取出前五項(default n = 5)
-```
+```python
 >>> df.head()
    #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
 0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
@@ -168,7 +168,7 @@ df = xl.parse(sheet_name,header)
 
 ### DataFrame.tail(n)
 取出後五項(
-```
+```python
 >>> df.tail(3)
      #           Player  GP   MIN   PTS  FGM   FGA   FG%  3PM  3PA   3P%  FTM  FTA   FT%  OREB  DREB  REB  AST  STL  BLK  TOV   EFF
 47  48  Devonte' Graham  63  35.1  18.2  5.8  15.3  38.2  3.5  9.3  37.3  3.0  3.7  82.0   0.7   2.7  3.4  7.5  1.0  0.2  2.9  17.3
@@ -180,7 +180,7 @@ df = xl.parse(sheet_name,header)
 
 ### df['col_name'] or df[['col_name1','col_name2']]
 
-```
+```python
 >>> df['Name']
 >>> df['Player']
 0                James Harden
@@ -198,7 +198,7 @@ df = xl.parse(sheet_name,header)
 Name: Player, dtype: object
 ```
 
-```
+```python
 >>> df[['Player','PTS']][:10]
                   Player   PTS
 0           James Harden  34.4
@@ -218,7 +218,7 @@ Name: Player, dtype: object
 
 #### df.iloc[row]
 列出第三筆資料
-```
+```python
 >>> df.iloc[2]
 #                             3
 Player    Giannis Antetokounmpo
@@ -246,13 +246,13 @@ Name: 2, dtype: object
 ```
 #### df.iloc[row][col]
 列出第三筆資料的第二欄
-```
+```python
 >>> df.iloc[2][1]
 'Giannis Antetokounmpo'
 ```
 
 #### df.iloc[[row_indexs],[col_indexs]]
-```
+```python
 >>> df.iloc[[1,3,5]]
    #        Player  GP   MIN   PTS   FGM   FGA   FG%  3PM  3PA   3P%  FTM  FTA   FT%  OREB  DREB  REB  AST  STL  BLK  TOV   EFF
 1  2  Bradley Beal  57  36.0  30.5  10.4  22.9  45.5  3.0  8.4  35.3  6.8  8.0  84.2   0.9   3.3  4.2  6.1  1.2  0.4  3.4  25.4
@@ -267,7 +267,7 @@ Name: 2, dtype: object
 
 
 #### df.iloc 切片
-```
+```python
 >>> df.iloc[:2,0:4]
    #        Player  GP   MIN
 0  1  James Harden  61  36.7
@@ -277,7 +277,7 @@ Name: 2, dtype: object
 
 #### df.loc[row_index]/df.loc[row_index][col_name]
 用法跟df.iloc 類似但是使用名稱
-```
+```python
 >>> df.loc[0]
 >>> df.loc[0]
 #                    1
@@ -345,28 +345,15 @@ Name: 0, dtype: object
 10  11           LeBron James  60  34.9  25.7   9.8  19.6  49.8  2.2   6.4  34.9   4.0   5.7  69.7   1.0   6.9   7.9  10.6  1.2  0.5  4.0  30.4
 ```
 
+
+
 篩選多個
 ```
->>> df[ (lambda x : x.EFF >30) and (lambda x : x.PTS >28)]
-   #                 Player  GP   MIN   PTS   FGM   FGA   FG%  ...  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
-0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  ...   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
-1  2           Bradley Beal  57  36.0  30.5  10.4  22.9  45.5  ...   0.9   3.3   4.2  6.1  1.2  0.4  3.4  25.4
-2  3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  ...   2.3  11.5  13.7  5.8  1.0  1.0  3.7  34.8
-3  4             Trae Young  60  35.3  29.6   9.1  20.8  43.7  ...   0.5   3.7   4.3  9.3  1.1  0.1  4.8  26.6
-4  5         Damian Lillard  58  36.9  28.9   9.2  20.0  45.7  ...   0.5   3.8   4.3  7.8  1.0  0.4  2.9  27.8
-5  6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  ...   1.3   8.0   9.3  8.7  1.1  0.2  4.2  30.4
-
-```
-
-搭配使用apply
-```
->>> df[ df.apply(lambda x : x['EFF'] >30,axis = 1)]
-     #                 Player  GP   MIN   PTS   FGM   FGA   FG%  ...  OREB  DREB   REB   AST  STL  BLK  TOV   EFF
-0    1           James Harden  61  36.7  34.4   9.9  22.7  43.5  ...   1.0   5.3   6.4   7.4  1.7  0.9  4.5  31.8
-2    3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  ...   2.3  11.5  13.7   5.8  1.0  1.0  3.7  34.8
-5    6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  ...   1.3   8.0   9.3   8.7  1.1  0.2  4.2  30.4
-8    9          Anthony Davis  55  34.3  26.7   9.2  18.1  51.1  ...   2.3   7.1   9.4   3.1  1.5  2.4  2.5  30.5
-10  11           LeBron James  60  34.9  25.7   9.8  19.6  49.8  ...   1.0   6.9   7.9  10.6  1.2  0.5  4.0  30.4
+>>> df[ df.apply(lambda x : x['EFF'] >30 and x['PTS'] >28,axis = 1)]
+   #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
+0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
+2  3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7  5.8  1.0  1.0  3.7  34.8
+5  6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3  8.7  1.1  0.2  4.2  30.4
 
 [5 rows x 22 columns]
 >>>

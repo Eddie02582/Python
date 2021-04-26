@@ -143,7 +143,7 @@ workbook.save('example.xls')
 
 ## 同時讀寫 Excel
 
-```
+```python
 import xlrd
 from xlutils.copy import copy
 
