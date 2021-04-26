@@ -2,6 +2,14 @@
 
 
 <a href = "https://pandas.pydata.org/pandas-docs/stable/reference/frame.html">官方連結</a>
+
+
+<ul>
+    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_1.ipynb">How to create data and get attributes</a><li/>
+</ul>
+
+
+
 ## 建立DataFrame
 
 ### array
