@@ -5,8 +5,8 @@
 
 
 <ul>
-    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_1.ipynb">How to create data and get attributes</a><li/>
-    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_2.ipynb">Read data and Data selection</a><li/>
+    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_1.ipynb">How to create data and get attributes</a></li>
+    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/pandas_2.ipynb">Read data and Data selection</a></li>
 </ul>
 
 
