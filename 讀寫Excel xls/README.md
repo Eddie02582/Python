@@ -22,7 +22,11 @@ workbook.sheet_names()
 worksheet = workbook.sheet_by_name("test1")
 
 #get worksheet by index
-worksheet = workbook.sheet_by_name("test1"
+for sheet_index in range(book.nsheets):
+    print (workbook.sheet_by_index(sheet_index))
+
+print (sheet0.row_slice(0,1))
+
 
 #get cell value row = 2 col = 3 (start from 0)
 worksheet.cell_value(1,2) 
@@ -33,15 +37,13 @@ worksheet.nrows
 # get max column
 worksheet.ncols
 
-)
-
 
 ```
 
 ## 寫入Excel
 
 ```
-	pip install xlwt
+    pip install xlwt
 ```
 
 
@@ -139,8 +141,29 @@ workbook.save('example.xls')
 
 ```
 
+## 同時讀寫 Excel
 
+```
+import xlrd
+from xlutils.copy import copy
 
+path = r"example.xlsx"
+
+readbook = xlrd.open_workbook(path)
+writebook = copy(readbook)   
+
+rsheet = readbook.sheet_by_index(0) 
+wsheet = workbook.get_sheet(0)
+
+#read value
+rsheet.cell_value(0,0) 
+
+# write value
+wsheet.write(1,0,5)
+
+workbook.save(path) 
+
+```
 
 
 
