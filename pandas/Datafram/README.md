@@ -7,81 +7,10 @@
 <ul>
     <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/Create%20data%20and%20get%20attributes.ipynb">How to create data and get attributes</a></li>
     <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/Read%20data%20and%20Data%20selection.ipynb">Read data and Data selection</a></li>
+    <li><a href = "https://nbviewer.jupyter.org/github/Eddie02582/Python/blob/master/pandas/Datafram/Read%20data%20and%20Data%20selection.ipynb">Data Filter</a></li>
 </ul>
 
 
-
-
-## DataFrame 資料filter
-使用方法df [條件]
-### 一般使用
-```
->>> df[(df["EFF"] > 30) & (df["PTS"] > 28)]
-   #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
-0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
-2  3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7  5.8  1.0  1.0  3.7  34.8
-5  6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3  8.7  1.1  0.2  4.2  30.4
->>>
-```
-
-### 使用lambda
-
-```
->>> df[ lambda x : x.EFF >30]
-     #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB   AST  STL  BLK  TOV   EFF
-0    1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4   7.4  1.7  0.9  4.5  31.8
-2    3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7   5.8  1.0  1.0  3.7  34.8
-5    6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3   8.7  1.1  0.2  4.2  30.4
-8    9          Anthony Davis  55  34.3  26.7   9.2  18.1  51.1  1.2   3.5  33.5   7.0   8.3  84.5   2.3   7.1   9.4   3.1  1.5  2.4  2.5  30.5
-10  11           LeBron James  60  34.9  25.7   9.8  19.6  49.8  2.2   6.4  34.9   4.0   5.7  69.7   1.0   6.9   7.9  10.6  1.2  0.5  4.0  30.4
-```
-
-
-
-篩選多個
-```
->>> df[ df.apply(lambda x : x['EFF'] >30 and x['PTS'] >28,axis = 1)]
-   #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
-0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
-2  3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7  5.8  1.0  1.0  3.7  34.8
-5  6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3  8.7  1.1  0.2  4.2  30.4
-
-[5 rows x 22 columns]
->>>
-```
-
-
-### 搭配DataSeries
-
-<ul>
-    <li>df[col_name].isin(array)</li>
-    <li>df[col_name].str.contains(str, na=False)  </li>
-    <li>df[col_name].lt (lt/le/gt/ge/eq)</li>  
-</ul>
-
-
-
-### df[col_name].str.contains(str, na=False)  
-```
->>> filter = df["Player"].str.contains("James", na=False)
->>> df[filter]
-     #        Player  GP   MIN   PTS  FGM   FGA   F
-0    1  James Harden  61  36.7  34.4  9.9  22.7  43
-10  11  LeBron James  60  34.9  25.7  9.8  19.6  49
-```
-
-
-### df[col_name].lt (lt,le,gt,ge,eq)
-也可以使用df.col_name 方式
-```
->>> filter_EFF = df["EFF"].gt(30)
->>> filter_PTS = df.PTS.gt(28)
->>> df[filter_EFF & filter_PTS]
-   #                 Player  GP   MIN   PTS   FGM   FGA   FG%  3PM   3PA   3P%   FTM   FTA   FT%  OREB  DREB   REB  AST  STL  BLK  TOV   EFF
-0  1           James Harden  61  36.7  34.4   9.9  22.7  43.5  4.4  12.6  35.2  10.1  11.8  86.1   1.0   5.3   6.4  7.4  1.7  0.9  4.5  31.8
-2  3  Giannis Antetokounmpo  57  30.9  29.6  10.9  20.0  54.7  1.5   4.8  30.6   6.3  10.0  63.3   2.3  11.5  13.7  5.8  1.0  1.0  3.7  34.8
-5  6            Luka Doncic  54  33.3  28.7   9.5  20.6  46.1  2.9   9.1  31.8   6.8   9.1  75.2   1.3   8.0   9.3  8.7  1.1  0.2  4.2  30.4
-```
 
 ## DataFrame Combine Data
 
