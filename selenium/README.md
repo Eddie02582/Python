@@ -88,7 +88,7 @@ search_text.send_keys("python", Keys.ENTER)
 ```
 ### handle Selection Element
 
-```
+```python
 element = driver.find_element_by_xpath("//select[@name='project']")
 all_options = element.find_elements_by_tag_name("option")
 for option in all_options:
@@ -97,7 +97,7 @@ for option in all_options:
     print('--------------------')
 ```
 use Select
-```
+```python
 from selenium.webdriver.support.ui import Select
 select = Select(driver.find_element_by_name('project'))
 select.select_by_index(index)
@@ -110,12 +110,12 @@ select.deselect_all()
 ### Switch Window
 有些情況會跳出新視窗,這時候需要用driver.switch_to.window
 
-```
+```python
 driver.switch_to_window("windowName")
 ```
 也可以透過driver.window_handles[1]取得第一個視窗的名字
 
-```
+```python
 driver.switch_to.window(driver.window_handles[1])   
 ```
 
@@ -132,35 +132,35 @@ driver.switch_to.window(driver.window_handles[1])
 
 #### driver.switch_to.frame("name or id")
 
-```
-    driver.switch_to.frame("frame1")
+```python
+driver.switch_to.frame("frame1")
 ```
 #### nested frame
 必須一層一層切進去
 
-```
+```python
 driver.switch_to.frame("frame1")
 driver.switch_to.frame("frame2")
 ```
 也可以使用(待測試)
-```
+```python
 driver.switch_to_frame("frame1.0.frame2")
 ```
 
 
 回到上一層
-```
+```python
 driver.switch_to.parent_frame()
 ```
 
 #### return frame
-```
+```python
     driver.switch_to.default_content()#可以跳出frame
 ```
 
 ### go back and go forward
 
-```
+```python
 driver.forward()
 driver.back()
 ```
