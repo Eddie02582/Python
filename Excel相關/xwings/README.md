@@ -1,171 +1,132 @@
-# selenium 
+# xwings 
 
 ## install 
 
 ```
-    pip install selenium    
+    pip install xwings    
 ```
 
-## Example
+## Simple
 
 ``` python
-from selenium import webdriver
-driver = webdriver.Chrome()
-driver.get("http://www.python.org")
-
-search_text = driver.find_element_by_id('id-search-field')
-#search_text = driver.find_element_by_name('q')
-search_text.send_keys(" and some", Keys.ARROW_DOWN)
+import xlwings as xw
+path = "simple.xlsx"
+wb = xw.Book() 
+sheet = wb.sheets[0] 
+sheet.cells(1, 1).value = "first"
+sheet.cells(1, 1).value = "second"
+wb.save(path)
+wb.close()
 ```
 
 
-## create instance
+## workbook use
 
+### open excel
+
+if you want to create empty excel
 ``` python
-from selenium import webdriver
-driver = webdriver.Chrome()
-driver.get("http://www.python.org")
-
-```
-<href a = "https://selenium-python.readthedocs.io/locating-elements.html#locating-elements">詳細可以參考</a>
-## Locating Elements
-<ul>   
-    <li>find_element_by_id</li>
-    <li>find_element_by_name</li>
-    <li>find_element_by_xpath</li>
-    <li>find_element_by_link_text</li>
-    <li>find_element_by_partial_link_text</li>
-    <li>find_element_by_tag_name</li>
-    <li>find_element_by_class_name</li>
-    <li>find_element_by_css_selector</li>
-</ul>
-To find multiple elements
-<ul>   
-    <li>find_elements_by_id</li>
-    <li>find_elements_by_name</li>
-    <li>find_elements_by_xpath</li>
-    <li>find_elements_by_link_text</li>
-    <li>find_elements_by_partial_link_text</li>
-    <li>find_elements_by_tag_name</li>
-    <li>find_elements_by_class_name</li>
-    <li>find_elements_by_css_selector</li>
-</ul>
-
-Other method using By
-
-```
-from selenium.webdriver.common.by import By
-driver.find_element(By.XPATH, '//button[text()="Some text"]')
-```
-These are the attributes available for By class:
-```
-ID = "id"
-XPATH = "xpath"
-LINK_TEXT = "link text"
-PARTIAL_LINK_TEXT = "partial link text"
-NAME = "name"
-TAG_NAME = "tag name"
-CLASS_NAME = "class name"
-CSS_SELECTOR = "css selector"
+wb = xw.Book() 
 ```
 
-## Navigating
+open exist excel
+``` python
+path = "simple.xlsx"
+wb = xw.Book(path) 
+```
 
-### Manipulate Elements 
-<ul>   
-    <li>send_keys</li>
-    <li>clear()</li>
-    <li>click</li>
-</ul>
 
-<a href = "https://selenium-python.readthedocs.io/navigating.html">Navigating</a>
-
-send_keys
+save excel
 ```python
-from selenium.webdriver.common.keys import Keys
-search_text.send_keys("python ", "3")
-search_text.send_keys("python", Keys.ENTER)
+wb.save(path)
 ```
-### handle Selection Element
+
+
+## how to get worksheet
+可以透過index 取出
+```
+>>> wb.sheets[0]
+<Sheet [simple.xlsx]Sheet1>
+```
+
+也可以透過sheetname
+
+```
+>>> wb.sheets["Sheet1"]
+<Sheet [simple.xlsx]Sheet1>
+```
+
+
+## write value
+```
+sheet = wb.sheets[0]
+
+```
+
+
+
+### using index 
+
+注意index 由1開始
+```
+sheet.cells(i, j).value = "test"; 
+```
+
+### using name 
+
+```
+sheet.range('B1').value = "test2"
+```
+
+### write range value
+
+```
+#write value from A2 ->E2
+sheet.range('A2').value = [1,2,3,4,5]
+```
+也可以寫多行,但是筆數不一樣
 
 ```python
-element = driver.find_element_by_xpath("//select[@name='project']")
-all_options = element.find_elements_by_tag_name("option")
-for option in all_options:
-    print("Value is: %s" % option.get_attribute("value"))
-    print("Text is: %s" % option.text)
-    print('--------------------')
-```
-use Select
-```python
-from selenium.webdriver.support.ui import Select
-select = Select(driver.find_element_by_name('project'))
-select.select_by_index(index)
-select.select_by_visible_text("text")
-select.select_by_value(value)
-select.deselect_all()
-
+#write value from A2 ->E2
+#write second array value from A3 ->C3
+sheet.range('A2').value = [['Foo 1', 'Foo 2', 'Foo 3'], [10.0, 20.0, 30.0]]
 ```
 
-### Switch Window
-有些情況會跳出新視窗,這時候需要用driver.switch_to.window
+如果想寫單欄
 
 ```python
-driver.switch_to_window("windowName")
+sheet.range('A2').value = [[1], [2],[3]]
 ```
-也可以透過driver.window_handles[1]取得第一個視窗的名字
+
+### write data using pandas/numpy
+
+可以透過 expand() 方法，或是 options 方法的 expand 參數動態偵測並且讀取一個連續、有值的儲存格範圍的資料。<br>
+這邊需要注意的是，expand() 方法會回傳一個 range() 物件，而 options(expand='table') 則會在選定一個範圍之後才會被執行<br>
 
 ```python
-driver.switch_to.window(driver.window_handles[1])   
+import pandas as pd
+df = pd.DataFrame([[1,2], [3,4]], columns=['a', 'b'])
+
+#下面方法在write 時並不影響
+sheet.range('A1').options(expand='table').value = df
+#sheet.range('A1').options().value
+sheet.range('A1').expand('table').value = df #or just expand()
+
 ```
 
-### Switch Frame
-```html
-<html>
- <iframe id="frame1">
-  <iframe id="frame2"/>
- </iframe>
-</html>
-```
-
-
-
-#### driver.switch_to.frame("name or id")
+also can use numpy
 
 ```python
-driver.switch_to.frame("frame1")
-```
-#### nested frame
-必須一層一層切進去
+import numpy as np
+arr = np.zeros(shape= (6,6))
+for i in range(1,6):
+    for j in range(1,6):
+        arr[i - 1][j - 1] = i * j
 
-```python
-driver.switch_to.frame("frame1")
-driver.switch_to.frame("frame2")
-```
-也可以使用(待測試)
-```python
-driver.switch_to_frame("frame1.0.frame2")
+sheet.range('A1').options(expend='table').value = arr
 ```
 
 
-回到上一層
-```python
-driver.switch_to.parent_frame()
-```
-
-#### return frame
-```python
-    driver.switch_to.default_content()#可以跳出frame
-```
-
-### go back and go forward
-
-```python
-driver.forward()
-driver.back()
-```
-
-## Waits
 
 
 
