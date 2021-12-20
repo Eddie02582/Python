@@ -261,6 +261,39 @@ using expand read,注意expand 是動態偵測並且讀取一個連續、有值�
 sheet.range('B2').expand().value
 ```
 
+### read data by option/convert
+
+#### numbers
+```python
+>>> sheet.range('A1').value
+4.0
+>>> sheet.range('A1').options(numbers=int).value
+4
+>>>
+```
+#### empty
+```python
+>>> sheet.range('B1').value
+>>> sheet.range('B1').options(empty='NA').value
+'NA'
+```
+
+#### read as dict
+
+A :1
+B :2
+
+```python
+>>> sheet.range('C1:D2').options(dict).value
+{'A': 1.0, 'B': 2.0}
+```
+
+C D 
+1 2 
+```python
+>>> sheet.range('C5:D6').options(dict, transpose=True).value
+{'C': 1.0, 'D': 2.0}
+```
 
 ### read data to pandas data/numpy data
 透過 expand() 方法，或是 options 方法的 expand 參數動態偵測並且讀取一個連續、有值的儲存格範圍的資料。<br>
