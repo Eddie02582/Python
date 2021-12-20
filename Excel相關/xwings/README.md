@@ -41,6 +41,18 @@ save excel
 wb.save(path)
 ```
 
+### open excel with app
+visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當screen_updating為False會比較省時間
+
+```python
+app = xw.App(visible =True, add_book=True)  
+app.screen_updating = debug
+app.display_alerts = False   
+path = "simple.xlsx"
+wb = xw.Book(path)  
+    
+```
+
 
 ## How to get worksheet
 可以透過index 取出
@@ -67,7 +79,7 @@ sheet = wb.sheets[0]
 
 ### using index 
 
-注意index 由1開始
+使用座標(row,col),注意啟始位置從1開始
 ```python
 sheet.cells(i, j).value = "test"; 
 ```
@@ -206,27 +218,31 @@ sheet.range('A1').options(expand='table').value = df
 ### read range value
 
 ### read col
+
 ```python
 >>> sheet.range('B2:B6').value
 [0.9210020590149163, 0.8543194171695255, 0.7318809859654273, 0.21569586136981367, 0.7830330228949836]
 ```
+
 如果希望回傳2d list
-```
+
+```python
 >>> sheet.range('B2:B6').options(ndim = 2).value
 [[0.9210020590149163], [0.8543194171695255], [0.7318809859654273], [0.21569586136981367], [0.7830330228949836]]
 ```
 
 ### read row
+
 ```python
 >>> sheet.range('B2:E2').value
 [0.9210020590149163, 0.2581829142794191, 0.4170663337627397, 0.7124263358483016]
 >>> sheet.range('B2:E6').value
 ```
+
 如果希望回傳2d list
 ```python
 >>> sheet.range('A2:E2').options(ndim=2).value
 [[0.0, 0.9210020590149163, 0.2581829142794191, 0.4170663337627397, 0.7124263358483016]]
-
 ```
 
 ### read all
@@ -301,14 +317,85 @@ array([['a', 'b', 'c', 'd'],
 
 ```
 
+## Wrire/Read Big Data
+
+需要寫大量資料建議用datafram 或是np array,下列寫入100*100陣列,逐筆寫入需要121秒,一次寫入只需要1秒
 
 
 
+```python
+import xlwings as xw
+import time
+import pythoncom
+import numpy as np
+import pandas as pd
+
+def write_value_by_cells():
+    t1 = time.time() 
+    debug = True
+    app = xw.App(visible =debug, add_book=True)  
+    app.screen_updating = debug
+    app.display_alerts = False
+    
+    path = "test.xlsx"
+    wb = xw.Book(path)    
+    ws = wb.sheets[0]     
+    for i in range(1,101):
+        for j in range(1,101):
+            ws.cells(i, j).value = i * j; 
+
+    t2= time.time()
+    print (t2 - t1)
+    wb.save()
+    wb.close()
+    app.quit()
 
 
 
+def write_value_by_range():
+    t1 = time.time()
+    
+    debug = False
+    app = xw.App(visible =debug, add_book=True)  
+    app.screen_updating = debug
+    app.display_alerts = False   
+    wb = xw.Book()
+    path = "test2.xlsx"   
+    ws = wb.sheets[0] 
+    
+    arr = np.zeros(shape= (100,100))    
+    for i in range(1,101):
+        for j in range(1,101):
+            arr[i - 1][j - 1] = i * j
+    
+    ws.range('A1').options(expend='table').value = arr     
+    wb.save(path)
+    wb.close()
+    app.quit()
+    
+    t2= time.time()  
+    print (t2 - t1)
+ ```
+
+如果遇到超時或內存錯誤,可以執行分塊,理想的塊大小將取決於您的系統和數組的大小，因此您必須嘗試幾種不同的塊大小以找到一種運行良好的塊大小：
 
 
+```python
+import pandas as pd
+import numpy as np
+sheet = xw.Book().sheets[0]
+data = np.arange(75_000 * 20).reshape(75_000, 20)
+df = pd.DataFrame(data=data)
+sheet['A1'].options(chunksize=10_000).value = df
+```
+
+And the same for reading:
+```python
+# As DataFrame
+df = sheet['A1'].expand().options(pd.DataFrame, chunksize=10_000).value
+# As list of list
+df = sheet['A1'].expand().options(chunksize=10_000).value
+```
 
 
 
