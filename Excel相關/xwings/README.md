@@ -115,12 +115,46 @@ wb.sheets['Sheet1'].autofit('c')
 wb.sheets['Sheet1'].autofit('r')
 wb.sheets['Sheet1'].autofit()
 ```
+### clear sheet
+Clears the content and formatting of the whole sheet.
 
+### clear_contents()
+Clears the content and formatting of the whole sheet.
 
+### copy data
+```python
 
+# Create two books and add a value to the first sheet of the first book
+first_book = xw.Book()
+second_book = xw.Book()
+first_book.sheets[0]['A1'].value = 'some value'
+
+# Copy to same Book with the default location and name
+first_book.sheets[0].copy()
+
+# Copy to same Book with custom sheet name
+first_book.sheets[0].copy(name='copied')
+
+# Copy to same Book with custom sheet name with specific loc
+first_book.sheets[0]['A1:C3'].copy(first_book.sheets['copied'].range('A2'))
+
+# Copy to second Book requires to use before or after
+first_book.sheets[0].copy(after=second_book.sheets[0])
+
+```
+
+### to Pdf
+```python
+wb = xw.Book()
+sheet = wb.sheets[0]
+sheet['A1'].value = 'PDF'
+sheet.to_pdf()
+```
 
 
 ## How to write value
+
+首先先取得要寫入的sheet
 ```python
 sheet = wb.sheets[0]
 ```
@@ -222,6 +256,9 @@ sheet.pictures.add(fig, name='MyPlot', update=True)
 ```
 
 
+
+
+
 ## How to read value
 
 首先我們先寫個値進去
@@ -259,13 +296,13 @@ sheet.range('A1').options(expand='table').value = df
 
 ### using name 
 ```python
->>> sheet.range('B2').value
+>>> sheet['B2'].value
 0.9210020590149163
 ```
 
 ### read range value
 
-### read col
+#### read col
 
 ```python
 >>> sheet.range('B2:B6').value
@@ -279,7 +316,7 @@ sheet.range('A1').options(expand='table').value = df
 [[0.9210020590149163], [0.8543194171695255], [0.7318809859654273], [0.21569586136981367], [0.7830330228949836]]
 ```
 
-### read row
+#### read row
 
 ```python
 >>> sheet.range('B2:E2').value
@@ -293,7 +330,7 @@ sheet.range('A1').options(expand='table').value = df
 [[0.0, 0.9210020590149163, 0.2581829142794191, 0.4170663337627397, 0.7124263358483016]]
 ```
 
-### read all
+#### read all
 ```python
 sheet.range('B2:E6').value
 ```
@@ -397,6 +434,92 @@ array([['a', 'b', 'c', 'd'],
 >>>
 
 ```
+
+## Get/Set Style
+
+
+### Font
+<ul>
+    <li>bold</li>
+    <li>color</li>
+    <li>italic</li>
+    <li>name</li>
+    <li>size</li>
+</ul>
+```python
+>>> sheet['A1'].font.bold
+False
+>>> sheet['A1'].font.color
+(0, 0, 0)
+>>> sheet['A1'].font.italic
+False
+>>> sheet['A1'].font.name = 'Calibri'
+>>> sheet['A1'].font.size = 13
+>>>
+
+```
+### Border
+使用sheet['A1'].api.Borders(n)做為接口,
+<table>
+    <tr>
+        <th>Number</th>
+        <th>位置</th>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>左上到右下</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>左下到右上</td>
+    </tr> 
+    <tr>
+        <td>7</td>
+        <td>左</td>
+    </tr> 
+    <tr>
+        <td>8</td>
+        <td>上</td>
+    </tr> 
+    <tr>
+        <td>9</td>
+        <td>底部</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>右邊</td>
+    </tr>
+</table>
+
+<ul>
+    <li>LineStyle</li>
+    <li>Weight</li>
+</ul>
+
+```
+sheet['A1'].api.Borders(9).Weight = 3
+sheet['A1'].api.Borders(9).LineStyle = 3
+```
+
+
+
+## Add chart 
+
+
+```python
+import xlwings as xw
+sht = xw.Book().sheets[0]
+sht.range('A1').value = [['Foo1', 'Foo2'], [1, 2]]
+chart = sht.charts.add(left=sheet.range('B5').left, top=sheet.range('B5').top)
+chart.set_source_data(sht.range('A1').expand())
+chart.chart_type = 'line'
+chart.to_png(path="777.png")
+
+```
+
+
+
+
 
 ## Wrire/Read Big Data
 
