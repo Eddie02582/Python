@@ -154,19 +154,17 @@ sheet.to_pdf()
 
 ## How to write value
 
-首先先取得要寫入的sheet
+取得要寫入的sheet
 ```python
 sheet = wb.sheets[0]
 ```
-
-### using index 
-
-使用座標(row,col),注意啟始位置從1開始
+### write single value
+ 
+使用位置(row,col),注意啟始位置從1開始
 ```python
-sheet.cells(i, j).value = "test"; 
+sheet.cells(1, 2).value = "test"; 
 ```
-
-### using name 
+也可以使用名字
 
 ```python
 sheet.range('B1').value = "test2"
@@ -174,11 +172,18 @@ sheet.range('B1').value = "test2"
 
 ### write range value
 
+寫入row datas
 ```python
 #write value from A2 ->E2
 sheet.range('A2').value = [1,2,3,4,5]
 ```
-也可以寫多行,但是筆數不一樣
+
+寫入col datas
+```python
+sheet.range('A2').value = [[1], [2],[3]]
+```
+
+寫多行,但是筆數不一樣
 
 ```python
 #write value from A2 ->E2
@@ -186,11 +191,8 @@ sheet.range('A2').value = [1,2,3,4,5]
 sheet.range('A2').value = [['Foo 1', 'Foo 2', 'Foo 3'], [10.0, 20.0, 30.0]]
 ```
 
-如果想寫單欄
 
-```python
-sheet.range('A2').value = [[1], [2],[3]]
-```
+
 
 ### write data using pandas/numpy
 
@@ -459,36 +461,41 @@ False
 
 ```
 ### Border
-使用sheet['A1'].api.Borders(n)做為接口,
+使用sheet['A1'].api.Borders(n)做為接口
+
 <table>
-    <tr>
-        <th>Number</th>
-        <th>位置</th>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>左上到右下</td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>左下到右上</td>
-    </tr> 
-    <tr>
-        <td>7</td>
-        <td>左</td>
-    </tr> 
-    <tr>
-        <td>8</td>
-        <td>上</td>
-    </tr> 
-    <tr>
-        <td>9</td>
-        <td>底部</td>
-    </tr>
-    <tr>
-        <td>10</td>
-        <td>右邊</td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>位置</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>5</td>
+            <td>左上到右下</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>左下到右上</td>
+        </tr> 
+        <tr>
+            <td>7</td>
+            <td>左</td>
+        </tr> 
+        <tr>
+            <td>8</td>
+            <td>上</td>
+        </tr> 
+        <tr>
+            <td>9</td>
+            <td>底部</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>右邊</td>
+        </tr>
+    </tbody>
 </table>
 
 <ul>
@@ -496,7 +503,7 @@ False
     <li>Weight</li>
 </ul>
 
-```
+```python
 sheet['A1'].api.Borders(9).Weight = 3
 sheet['A1'].api.Borders(9).LineStyle = 3
 ```
