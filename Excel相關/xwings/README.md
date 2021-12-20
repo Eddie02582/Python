@@ -191,7 +191,7 @@ sheet.range('A1').options(expand='table').value = df
 ```
 ### using index 
 
-注意index 由1開始
+使用座標(row,col),注意index 由1開始
 ```python
 >>> sheet.cells(2, 2).value
 0.9210020590149163
@@ -205,21 +205,46 @@ sheet.range('A1').options(expand='table').value = df
 
 ### read range value
 
-read col
+### read col
 ```python
 >>> sheet.range('B2:B6').value
 [0.9210020590149163, 0.8543194171695255, 0.7318809859654273, 0.21569586136981367, 0.7830330228949836]
 ```
-read row
+如果希望回傳2d list
+```
+>>> sheet.range('B2:B6').options(ndim = 2).value
+[[0.9210020590149163], [0.8543194171695255], [0.7318809859654273], [0.21569586136981367], [0.7830330228949836]]
+```
+
+### read row
 ```python
 >>> sheet.range('B2:E2').value
 [0.9210020590149163, 0.2581829142794191, 0.4170663337627397, 0.7124263358483016]
 >>> sheet.range('B2:E6').value
 ```
-read all
+如果希望回傳2d list
+```python
+>>> sheet.range('A2:E2').options(ndim=2).value
+[[0.0, 0.9210020590149163, 0.2581829142794191, 0.4170663337627397, 0.7124263358483016]]
+
+```
+
+### read all
 ```python
 sheet.range('B2:E6').value
 ```
+也可以使用座標(row,col)
+
+```python
+sheet.range((2,2),(6,5)).value
+```
+
+using expand read,注意expand 是動態偵測並且讀取一個連續、有值的儲存格範圍,如果單讀在F7填値的話會抓取不到
+
+```python
+sheet.range('B2').expand().value
+```
+
 
 ### read data to pandas data/numpy data
 透過 expand() 方法，或是 options 方法的 expand 參數動態偵測並且讀取一個連續、有值的儲存格範圍的資料。<br>
