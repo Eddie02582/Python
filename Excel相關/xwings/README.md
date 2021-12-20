@@ -448,6 +448,7 @@ array([['a', 'b', 'c', 'd'],
     <li>name</li>
     <li>size</li>
 </ul>
+
 ```python
 >>> sheet['A1'].font.bold
 False
@@ -458,9 +459,10 @@ False
 >>> sheet['A1'].font.name = 'Calibri'
 >>> sheet['A1'].font.size = 13
 >>>
-
 ```
+
 ### Border
+
 使用sheet['A1'].api.Borders(n)做為接口
 
 <table>
