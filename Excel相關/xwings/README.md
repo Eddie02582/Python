@@ -56,28 +56,74 @@ wb = xw.Book(path)
 ```
 
 
-## How to get worksheet
-可以透過index 取出
+## How to Manipulate worksheet
+
+<a href = "https://docs.xlwings.org/en/stable/api.html#sheet">官網教學</a>
+
+### get sheets/sheets
+取得所有sheets
+```python
+>>> wb.sheets
+Sheets([<Sheet [Book1]Sheet1>])
+```
+
+get shhet by index
 ```python
 >>> wb.sheets[0]
 <Sheet [simple.xlsx]Sheet1>
 ```
 
-也可以透過sheetname
-
+get shhet by sheetname
 ```python
 >>> wb.sheets["Sheet1"]
 <Sheet [simple.xlsx]Sheet1>
 ```
 
+### add sheet
+有三個參數
+```python
+add(name=None, before=None, after=None)
+```
+插入在sheet1之前
+
+```python
+wb.sheets.add('Sheet0',before = "Sheet1")
+```
+插入在Sheet1之後
+```python
+wb.sheets.add('Sheet2',after = "Sheet1")
+```
+### delete sheet
+```python
+>>> wb.sheets["Sheet2"].delete()
+<Sheet [simple.xlsx]Sheet1>
+```
+
+### autofit sheet
+
+<ul class="simple">
+<li><p>To autofit rows, use one of the following: <code class="docutils literal notranslate"><span class="pre">rows</span></code> or <code class="docutils literal notranslate"><span class="pre">r</span></code></p></li>
+<li><p>To autofit columns, use one of the following: <code class="docutils literal notranslate"><span class="pre">columns</span></code> or <code class="docutils literal notranslate"><span class="pre">c</span></code></p></li>
+<li><p>To autofit rows and columns, provide no arguments</p></li>
+</ul>
+
+
+```python
+import xlwings as xw
+wb = xw.Book()
+wb.sheets['Sheet1'].autofit('c')
+wb.sheets['Sheet1'].autofit('r')
+wb.sheets['Sheet1'].autofit()
+```
+
+
+
+
 
 ## How to write value
 ```python
 sheet = wb.sheets[0]
-
 ```
-
-
 
 ### using index 
 
