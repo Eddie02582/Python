@@ -53,7 +53,7 @@ To find multiple elements
 
 Other method using By
 
-```
+```python
 from selenium.webdriver.common.by import By
 driver.find_element(By.XPATH, '//button[text()="Some text"]')
 ```
@@ -155,7 +155,7 @@ driver.switch_to.parent_frame()
 
 #### return frame
 ```python
-    driver.switch_to.default_content()#可以跳出frame
+driver.switch_to.default_content()#可以跳出frame
 ```
 
 ### go back and go forward
