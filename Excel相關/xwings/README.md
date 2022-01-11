@@ -25,7 +25,7 @@ app.screen_updating = True
 app.display_alerts = False   
 app.quit()
 ```
-
+visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當screen_updating為False會比較省時間
 ## How to Manipulate workbooks
 
 ### using app open new excel
@@ -38,7 +38,7 @@ path = "data.xls"
 wb.save(path)
 app.quit()
 ```
-visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當screen_updating為False會比較省時間
+
 
 
 ### open new excel
@@ -166,7 +166,7 @@ sheet.to_pdf()
             <td>Description</td>
         </tr>
     </thead>
-        <tbody>
+    <tbody>
         <tr>
             <td>sheet1.cells(1, 2)</td>
             <td>注意啟始位置為1</td>
@@ -186,8 +186,7 @@ sheet.to_pdf()
         <tr>
             <td>sheet1[0, 1]</td>
             <td>利用切片</td>
-        </tr>
-        
+        </tr>        
     </tbody>
 </table>
 
