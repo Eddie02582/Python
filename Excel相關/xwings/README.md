@@ -223,8 +223,7 @@ sheet.to_pdf()
         </tr>
         <tr>
             <td>Row 1</td>
-            <td>sheet1.range("1:1")/sheet1["1:1"]/sheet1[0,:]</td>
-            <td>Row 1</td>
+            <td>sheet1.range("1:1")/sheet1["1:1"]/sheet1[0,:]</td>           
         </tr>  
         <tr>
             <td>Rows 1 to 2</td>
