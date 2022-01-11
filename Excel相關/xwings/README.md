@@ -22,7 +22,7 @@ wb.close()
 ```
 
 
-## workbook use
+## Working with Excel workbooks
 
 ### open excel
 
@@ -151,44 +151,131 @@ sheet['A1'].value = 'PDF'
 sheet.to_pdf()
 ```
 
+## How to get Range
+
+
+### get single cell
+
+假設想get B1
+<table>
+    <caption>Get Single Cell</caption>
+    <thead>
+        <tr>
+            <td>Refernece</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+        <tbody>
+        <tr>
+            <td>sheet1.cells(1, 2)</td>
+            <td>注意啟始位置為1</td>
+        </tr>
+        <tr>
+            <td>sheet1.range(1,2)</td>
+            <td>注意啟始位置為1</td>
+        </tr> 
+        <tr>
+            <td>sheet1.range("B1")</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>sheet1["B1"]</td>
+            <td>同sheet1.range("B1")只是省略range</td>
+        </tr>   
+        <tr>
+            <td>sheet1[0, 1]</td>
+            <td>利用切片</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+### get range cell
+主要有三種方法
+
+<ul>
+    <li>sheet1.range("reference")/sheet1["reference"]</li>
+    <li>sheet1.range(cell1, cell2=None)</li>
+    <li>利用切片</li>
+<ul>
+
+<table>
+    <caption>Strings to define a range in A1 notation</caption>
+    <thead>
+        <tr>
+            <td>Description</td>
+            <td>How to Use</td>
+        </tr>
+    </thead>
+        <tbody>       
+        <tr>            
+            <td>Cells from A1 to B2</td>
+            <td>sheet1.range("A1:B2")/sheet1["A1:B2"]/sheet1.range((1, 1), (2, 2))/sheet1[:2, :2]</td>
+        </tr>  
+        <tr>            
+            <td>Column A</td>
+            <td>sheet1.range("A:A")/sheet1["A:A"]/sheet1[:,0]</td>
+        </tr> 
+        <tr>
+            <td>Columns A to B</td>
+            <td>sheet1.range("A:B")/sheet1["A:B"]/sheet1[:,:2]</td>           
+        </tr>
+        <tr>
+            <td>Row 1</td>
+            <td>sheet1.range("1:1")/sheet1["1:1"]/sheet1[0,:]</td>
+            <td>Row 1</td>
+        </tr>  
+        <tr>
+            <td>Rows 1 to 2</td>
+            <td>sheet1.range("1:2")/sheet1["1:2"]/sheet1[:2,:]</td>           
+        </tr> 
+    </tbody>
+</table>
+
 
 ## How to write value
+知道如何get range 只需要使用value ,即可寫值
 
-取得要寫入的sheet
-```python
-sheet = wb.sheets[0]
-```
 ### write single value
+在B1寫值
+
+<ul>
+    <li>sheet1.cells(1, 2).value</li>
+    <li>sheet1.range(1, 2).value</li>
+    <li>sheet1.range('B1').value </li>
+    <li>sheet1[0,1].value</li>
+<ul>
  
-使用位置(row,col),注意啟始位置從1開始
-```python
-sheet.cells(1, 2).value = "test"; 
-```
-也可以使用名字
 
 ```python
-sheet.range('B1').value = "test2"
+sheet1.cells(1, 2).value = "test"; 
+sheet1.range(1, 2).value = "test"; 
+sheet1.range('B1').value = "test"; 
+sheet1[0,1].value = "test"; 
 ```
 
 ### write range value
 
-寫入row datas
+從指定位置寫入row datas
 ```python
 #write value from A2 ->E2
-sheet.range('A2').value = [1,2,3,4,5]
+sheet1.range('A2').value = [1,2,3,4,5]
+sheet1.range(2, 1).value =[1,2,3,4,5]
+sheet1[1,0].value = [1,2,3,4,6]
 ```
 
-寫入col datas
+從指定位置寫入 col datas
 ```python
-sheet.range('A2').value = [[1], [2],[3]]
+sheet1.range('A2').value = [[1], [2],[3]]
 ```
 
-寫多行,但是筆數不一樣
+從指定位置寫入多行,但是筆數不一樣
 
 ```python
 #write value from A2 ->E2
 #write second array value from A3 ->C3
-sheet.range('A2').value = [['Foo 1', 'Foo 2', 'Foo 3'], [10.0, 20.0, 30.0]]
+sheet1.range('A2').value = [['Foo 1', 'Foo 2', 'Foo 3'], [10.0, 20.0, 30.0]]
 ```
 
 
@@ -204,16 +291,16 @@ import pandas as pd
 df = pd.DataFrame([[1,2], [3,4]], columns=['a', 'b'])
 
 #下面方法在write 時並不影響
-sheet.range('A1').options(expand='table').value = df
+sheet1.range('A1').options(expand='table').value = df
 #sheet.range('A1').options().value
-sheet.range('A1').expand('table').value = df #or just expand()
+sheet1.range('A1').expand('table').value = df #or just expand()
 
 ```
 
 指定不要index,和head
 
 ```python
-sheet.range('A1').options(expand='table',index=False, header=False).value = df
+sheet1.range('A1').options(expand='table',index=False, header=False).value = df
 
 ```
 
@@ -226,7 +313,7 @@ for i in range(1,6):
     for j in range(1,6):
         arr[i - 1][j - 1] = i * j
 
-sheet.range('A1').options(expend='table').value = arr
+sheet1.range('A1').options(expend='table').value = arr
 ```
 
 
@@ -235,13 +322,13 @@ sheet.range('A1').options(expend='table').value = arr
 import matplotlib.pyplot as plt
 fig = plt.figure()
 plt.plot([1, 2, 3, 4, 5])
-sheet.pictures.add(fig, name='MyPlot', update=True)
+sheet1.pictures.add(fig, name='MyPlot', update=True)
 ```
 
 指定放置位置
 
 ```python
-sheet.pictures.add(fig, name='MyPlot', update=True,left=sheet.range('B5').left, top=sheet.range('B5').top)
+sheet1.pictures.add(fig, name='MyPlot', update=True,left=sheet.range('B5').left, top=sheet.range('B5').top)
 
 ```
 
@@ -254,7 +341,7 @@ import matplotlib.pyplot as plt
 df = pd.DataFrame(np.random.rand(10, 4), columns=['a', 'b', 'c', 'd'])
 ax = df.plot(kind='bar')
 fig = ax.get_figure()
-sheet.pictures.add(fig, name='MyPlot', update=True)
+sheet1.pictures.add(fig, name='MyPlot', update=True)
 ```
 
 
@@ -274,7 +361,7 @@ wb = xw.Book()
 sheet = wb.sheets[0] 
 sheet = wb.sheets[0]
 df = pd.DataFrame(np.random.rand(5, 4), columns=['a', 'b', 'c', 'd'])
-sheet.range('A1').options(expand='table').value = df
+sheet1.range('A1').options(expand='table').value = df
 
 ```
 
