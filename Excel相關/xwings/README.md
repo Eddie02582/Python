@@ -8,53 +8,54 @@
     pip install xwings    
 ```
 
-## Simple
-
-``` python
-import xlwings as xw
-path = "simple.xlsx"
-wb = xw.Book() 
-sheet = wb.sheets[0] 
-sheet.cells(1, 1).value = "first"
-sheet.cells(1, 1).value = "second"
-wb.save(path)
-wb.close()
-```
+## 架構
+操作分三部分
+<ul>
+    <li>app</li>
+    <li>book</li>
+    <li>sheet</li>
+<ul>
+<img src="https://github.com/Eddie02582/Python/blob/master/Excel%E7%9B%B8%E9%97%9C/xwings/xwings.PNG" alt="架構圖">
 
 
-## Working with Excel workbooks
-
-### open excel
-
-if you want to create empty excel
-``` python
-wb = xw.Book() 
-```
-
-open exist excel
-``` python
-path = "simple.xlsx"
-wb = xw.Book(path) 
-```
-
-
-save excel
+## How to Manipulate app
 ```python
-wb.save(path)
+app = xw.App(visible = True, add_book = True)  
+app.screen_updating = True
+app.display_alerts = False   
+app.quit()
 ```
 
-### open excel with app
+## How to Manipulate workbooks
+
+### using app open new excel
+```python 
+app = xw.App(visible = True, add_book = True)  
+app.screen_updating = True
+app.display_alerts = False   
+wb = xw.Book() 
+path = "data.xls"
+wb.save(path)
+app.quit()
+```
 visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當screen_updating為False會比較省時間
 
-```python
-app = xw.App(visible =True, add_book=True)  
-app.screen_updating = debug
-app.display_alerts = False   
-path = "simple.xlsx"
-wb = xw.Book(path)  
-    
-```
 
+### open new excel
+```python    
+path = "data.xls"
+wb = xw.Book()
+wb.save(path)
+wb.close()
+``` 
+
+### open exist excel
+```python    
+path = "data.xls"
+wb = xw.Book(path)
+wb.save()
+wb.close()
+``` 
 
 ## How to Manipulate worksheet
 
