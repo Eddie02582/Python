@@ -198,7 +198,7 @@ sheet.to_pdf()
     <li>sheet1.range("reference")/sheet1["reference"]</li>
     <li>sheet1.range(cell1, cell2=None)</li>
     <li>利用切片</li>
-<ul>
+</ul>
 
 <table>
     <caption>Strings to define a range in A1 notation</caption>
