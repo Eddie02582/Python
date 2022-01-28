@@ -116,11 +116,17 @@ wb.sheets['Sheet1'].autofit('c')
 wb.sheets['Sheet1'].autofit('r')
 wb.sheets['Sheet1'].autofit()
 ```
-### clear sheet
+### clear
 Clears the content and formatting of the whole sheet.
+```python
+wb.sheets['Sheet1'].clear()
+```
 
 ### clear_contents()
-Clears the content and formatting of the whole sheet.
+Clears the content of the whole sheet but leaves the formatting.
+```python
+wb.sheets['Sheet1'].clear_contents()
+```
 
 ### copy data
 ```python
@@ -152,14 +158,13 @@ sheet['A1'].value = 'PDF'
 sheet.to_pdf()
 ```
 
-## How to get Range
+## How to get Range(Cell/Cells)
 
 
 ### get single cell
 
-假設想get B1
 <table>
-    <caption>Get Single Cell</caption>
+    <caption>Get B1 Cell</caption>
     <thead>
         <tr>
             <td>Refernece</td>
@@ -237,14 +242,14 @@ sheet.to_pdf()
 知道如何get range 只需要使用value ,即可寫值
 
 ### write single value
-在B1寫值
 
+在B1寫值
 <ul>
     <li>sheet1.cells(1, 2).value</li>
     <li>sheet1.range(1, 2).value</li>
     <li>sheet1.range('B1').value </li>
     <li>sheet1[0,1].value</li>
-<ul>
+</ul>
  
 
 ```python
@@ -546,6 +551,16 @@ False
 >>> sheet['A1'].font.size = 13
 >>>
 ```
+
+```python
+sheet['A1'].color = 255,200,255         
+sheet['A1'].api.Font.ColorIndex = 3     
+sheet['A1'].api.Font.Size = 24          
+sheet['A1'].api.Font.Bold = True        
+sheet['A1'].api.HorizontalAlignment = -4108    # -4108 水平居中。 -4131 靠左，-4152 靠右。
+sheet['A1'].api.VerticalAlignment = -4130      # -4108 垂直居中（默认）。 -4160 靠上，-4107 
+```
+
 
 ### Border
 
