@@ -18,6 +18,40 @@
 <img src="https://github.com/Eddie02582/Python/blob/master/Excel%E7%9B%B8%E9%97%9C/xlwings/xlwings.PNG" alt="架構圖">
 
 
+## App
+App 就是excel 的實例,每個app 可以有很多workbook
+
+### create_app
+
+visible用來設定程式是否可見，True表示可見（預設），Flase不可見。<br>
+add_book用來設定是否自動建立工作簿，True表示自動建立（預設），False不建立<br>
+
+```python
+	app1 = xw.App(visible = True, add_book = True) 
+	app2 = xw.App(visible = True, add_book = False)
+```
+左邊為app2,右邊為app1<br>
+
+
+<img src="apps.png" alt="apps">
+
+### get pid
+```python
+	app.pid
+```
+### set activate app
+
+```python
+	app.activate()
+	app.activate(steal_focus=True
+```
+當steal_focus=True時, Excel程式變成最前台的應用，並且把焦點從Python切換到Excel
+
+### get current activate app
+```python
+	xw.apps.active
+```
+
 ## How to Manipulate app
 ```python
 app = xw.App(visible = True, add_book = True)  
@@ -26,12 +60,12 @@ app.display_alerts = False
 app.quit()
 ```
 visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當screen_updating為False會比較省時間
-## How to Manipulate workbooks
 
-### using app open new excel
+
+## using app open new excel
 ```python 
 
-app =xw.App(visible = False,add_book = True)
+app =xw.App(visible = False,add_book = False)
 wb = app.books.add()
 wb.save('1.xlsx')
 wb.close()
@@ -39,22 +73,22 @@ app.quit()
 ```
 
 
+## Book
 
-### open new excel
-```python    
-path = "data.xls"
-wb = xw.Book()
-wb.save(path)
-wb.close()
-``` 
+### create new book
 
-### open exist excel
-```python    
-wb = xw.Book("data.xls")
-``` 
+```python 
+	#using app
+	wb = app.books.add()
+	or 
+	wb = xw.Book()
+```
 
+### open exist book
 ```python    
-wb = app.books.open('data.xlsx')
+	wb = xw.Book("data.xls")
+    #using app
+	wb = app.books.open('data.xlsx')
 ``` 
 
 ## How to Manipulate worksheet
