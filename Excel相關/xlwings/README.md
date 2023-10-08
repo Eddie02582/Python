@@ -1,4 +1,4 @@
-# xwings 
+# xlwings 
 
 <a href ="https://docs.xlwings.org/en/stable/">官網教學</a>
 
@@ -30,12 +30,11 @@ visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當scree
 
 ### using app open new excel
 ```python 
-app = xw.App(visible = True, add_book = True)  
-app.screen_updating = True
-app.display_alerts = False   
-wb = xw.Book() 
-path = "data.xls"
-wb.save(path)
+
+app =xw.App(visible = False,add_book = True)
+wb = app.books.add()
+wb.save('1.xlsx')
+wb.close()
 app.quit()
 ```
 
