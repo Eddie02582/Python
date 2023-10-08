@@ -15,7 +15,7 @@
     <li>book</li>
     <li>sheet</li>
 </ul>
-<img src="https://github.com/Eddie02582/Python/blob/master/Excel%E7%9B%B8%E9%97%9C/xwings/xwings.PNG" alt="架構圖">
+<img src="https://github.com/Eddie02582/Python/blob/master/Excel%E7%9B%B8%E9%97%9C/xlwings/xlwings.PNG" alt="架構圖">
 
 
 ## How to Manipulate app
