@@ -27,8 +27,8 @@ visible用來設定程式是否可見，True表示可見（預設），Flase不�
 add_book用來設定是否自動建立工作簿，True表示自動建立（預設），False不建立<br>
 
 ```python
-	app1 = xw.App(visible = True, add_book = True) 
-	app2 = xw.App(visible = True, add_book = False)
+app1 = xw.App(visible = True, add_book = True) 
+app2 = xw.App(visible = True, add_book = False)
 ```
 左邊為app2,右邊為app1<br>
 
@@ -37,13 +37,13 @@ add_book用來設定是否自動建立工作簿，True表示自動建立（預�
 
 ### get pid
 ```python
-	app.pid
+app.pid
 ```
 ### set activate app
 
 ```python
-	app.activate()
-	app.activate(steal_focus=True
+app.activate()
+app.activate(steal_focus=True
 ```
 當steal_focus=True時, Excel程式變成最前台的應用，並且把焦點從Python切換到Excel
 
@@ -64,7 +64,6 @@ visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當scree
 
 ## using app open new excel
 ```python 
-
 app =xw.App(visible = False,add_book = False)
 wb = app.books.add()
 wb.save('1.xlsx')
@@ -78,17 +77,17 @@ app.quit()
 ### create new book
 
 ```python 
-	#using app
-	wb = app.books.add()
-	or 
-	wb = xw.Book()
+#using app
+wb = app.books.add()
+or 
+wb = xw.Book()
 ```
 
 ### open exist book
 ```python    
-	wb = xw.Book("data.xls")
-    #using app
-	wb = app.books.open('data.xlsx')
+wb = xw.Book("data.xls")
+#using app
+wb = app.books.open('data.xlsx')
 ``` 
 
 ## How to Manipulate worksheet
