@@ -50,10 +50,11 @@ wb.close()
 
 ### open exist excel
 ```python    
-path = "data.xls"
-wb = xw.Book(path)
-wb.save()
-wb.close()
+wb = xw.Book("data.xls")
+``` 
+
+```python    
+wb = app.books.open('data.xlsx')
 ``` 
 
 ## How to Manipulate worksheet
