@@ -52,16 +52,6 @@ app.activate(steal_focus=True
 	xw.apps.active
 ```
 
-## How to Manipulate app
-```python
-app = xw.App(visible = True, add_book = True)  
-app.screen_updating = True
-app.display_alerts = False   
-app.quit()
-```
-visible 為是否要顯示excel,screen_updating為是否要更新螢幕,當screen_updating為False會比較省時間
-
-
 ## using app open new excel
 ```python 
 app =xw.App(visible = False,add_book = False)
@@ -79,7 +69,7 @@ app.quit()
 ```python 
 #using app
 wb = app.books.add()
-or 
+#or 
 wb = xw.Book()
 ```
 
@@ -90,27 +80,25 @@ wb = xw.Book("data.xls")
 wb = app.books.open('data.xlsx')
 ``` 
 
-## How to Manipulate worksheet
-
+## Sheet
 <a href = "https://docs.xlwings.org/en/stable/api.html#sheet">官網教學</a>
 
 ### get sheets/sheets
+
 取得所有sheets
 ```python
 >>> wb.sheets
 Sheets([<Sheet [Book1]Sheet1>])
 ```
 
-get shhet by index
+get sheet
 ```python
 >>> wb.sheets[0]
-<Sheet [simple.xlsx]Sheet1>
-```
-
-get shhet by sheetname
-```python
+<Sheet [123.xlsx]Sheet1>
+>>> wb.sheets(1)
+<Sheet [123.xlsx]Sheet1>
 >>> wb.sheets["Sheet1"]
-<Sheet [simple.xlsx]Sheet1>
+<Sheet [123.xlsx]Sheet1>
 ```
 
 ### add sheet
@@ -143,8 +131,6 @@ wb.sheets.add('Sheet2',after = "Sheet1")
 
 
 ```python
-import xlwings as xw
-wb = xw.Book()
 wb.sheets['Sheet1'].autofit('c')
 wb.sheets['Sheet1'].autofit('r')
 wb.sheets['Sheet1'].autofit()
