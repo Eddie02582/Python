@@ -306,19 +306,31 @@ sheet.to_pdf()
         </tr>  
         <tr>            
             <td>Column A</td>
-            <td>sheet1.range("A:A")/sheet1["A:A"]/sheet1[:,0]</td>
+            <td>sheet.range("A:A")<br>
+				sheet["A:A"]<br>
+				sheet[:,0]<br>
+			</td>
         </tr> 
         <tr>
             <td>Columns A to B</td>
-            <td>sheet1.range("A:B")/sheet1["A:B"]/sheet1[:,:2]</td>           
+            <td>sheet.range("A:B")<br>
+				sheet["A:B"]<br>
+				sheet[:,:2]<br>
+			</td>           
         </tr>
         <tr>
             <td>Row 1</td>
-            <td>sheet1.range("1:1")/sheet1["1:1"]/sheet1[0,:]</td>           
+            <td>sheet.range("1:1")<br>
+				sheet["1:1"]<br>
+				sheet[0,:]<br>
+			</td>           
         </tr>  
         <tr>
             <td>Rows 1 to 2</td>
-            <td>sheet1.range("1:2")/sheet1["1:2"]/sheet1[:2,:]</td>           
+            <td>sheet.range("1:2")<br>
+			    sheet1["1:2"]<br>
+				sheet1[:2,:]<br>
+			</td>           
         </tr> 
     </tbody>
 </table>
