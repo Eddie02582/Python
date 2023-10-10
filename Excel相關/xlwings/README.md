@@ -707,8 +707,7 @@ sheet['A1'].api.VerticalAlignment = -4130      # -4108 垂直居中（默认）�
         <tr>
             <td>12</td>
             <td>range裡面德橫線</td>
-        </tr>
-		
+        </tr>		
     </tbody>
 </table>
 
