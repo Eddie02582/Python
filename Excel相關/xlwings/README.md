@@ -103,16 +103,16 @@ wb = app.books.open('data.xlsx')
 ``` 
 ### get book
 
-get book from specific app
+from specific app
 ```python    
 # get app1 book1
 wb = app1.books(1)
 wb = app1.books[0]
 
 wb = xw.books["Book1"]
-
 ``` 
-get book from active app
+
+ from active app
 ```python    
 app2.activate()
 wb = xw.books(2)
@@ -141,6 +141,11 @@ get sheet
 <Sheet [123.xlsx]Sheet1>
 ```
 
+### active sheet
+```python
+sheet.active 
+```
+
 ### add sheet
 有三個參數
 ```python
@@ -161,6 +166,8 @@ wb.sheets.add('Sheet2',after = "Sheet1")
 <Sheet [simple.xlsx]Sheet1>
 ```
 
+
+
 ### autofit sheet
 
 <ul class="simple">
@@ -171,9 +178,9 @@ wb.sheets.add('Sheet2',after = "Sheet1")
 
 
 ```python
-wb.sheets['Sheet1'].autofit('c')
-wb.sheets['Sheet1'].autofit('r')
-wb.sheets['Sheet1'].autofit()
+sheet.autofit('c')
+sheet.autofit('r')
+sheet.autofit()
 ```
 ### clear
 Clears the content and formatting of the whole sheet.
@@ -181,11 +188,25 @@ Clears the content and formatting of the whole sheet.
 wb.sheets['Sheet1'].clear()
 ```
 
+### rename
+```python
+sheet.name = "123
+```
+
+
 ### clear_contents()
 Clears the content of the whole sheet but leaves the formatting.
 ```python
 wb.sheets['Sheet1'].clear_contents()
 ```
+
+### sheet max row/col
+
+```python
+sheet.used_range.last_cell.row                   
+sheet.used_range.last_cell.column  
+```
+
 
 ### copy data
 ```python
@@ -275,7 +296,13 @@ sheet.to_pdf()
         <tbody>       
         <tr>            
             <td>Cells from A1 to B2</td>
-            <td>sheet1.range("A1:B2")/sheet1["A1:B2"]/sheet1.range((1, 1), (2, 2))/sheet1[:2, :2]</td>
+            <td>
+				sheet.range("A1:B2")<br>
+				sheet["A1:B2"]<br>
+				sheet.range((1, 1), (2, 2))<br>
+				sheet.range(("A1"), ("B2"))<br>
+				sheet[:2, :2]<br>			
+			</td>
         </tr>  
         <tr>            
             <td>Column A</td>
