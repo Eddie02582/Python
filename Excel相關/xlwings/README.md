@@ -343,18 +343,18 @@ sheet.to_pdf()
 
 在B1寫值
 <ul>
-    <li>sheet1.cells(1, 2).value</li>
-    <li>sheet1.range(1, 2).value</li>
-    <li>sheet1.range('B1').value </li>
-    <li>sheet1[0,1].value</li>
+    <li>sheet.cells(1, 2).value</li>
+    <li>sheet.range(1, 2).value</li>
+    <li>sheet.range('B1').value </li>
+    <li>sheet[0,1].value</li>
 </ul>
  
 
 ```python
-sheet1.cells(1, 2).value = "test"; 
-sheet1.range(1, 2).value = "test"; 
-sheet1.range('B1').value = "test"; 
-sheet1[0,1].value = "test"; 
+sheet.cells(1, 2).value = "test" 
+sheet.range(1, 2).value = "test" 
+sheet.range('B1').value = "test" 
+sheet[0,1].value = "test"
 ```
 
 ### write range value
@@ -700,6 +700,15 @@ sheet['A1'].api.VerticalAlignment = -4130      # -4108 垂直居中（默认）�
             <td>10</td>
             <td>右邊</td>
         </tr>
+        <tr>
+            <td>11</td>
+            <td>range裡面德縱線</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>range裡面德橫線</td>
+        </tr>
+		
     </tbody>
 </table>
 
@@ -711,6 +720,19 @@ sheet['A1'].api.VerticalAlignment = -4130      # -4108 垂直居中（默认）�
 ```python
 sheet['A1'].api.Borders(9).Weight = 3
 sheet['A1'].api.Borders(9).LineStyle = 3
+
+sheet.range('A2:E2').api.Borders(9).Weight = 2
+
+sheet.range('B2:E5').api.Borders(7).Weight = 2
+sheet.range('B2:E5').api.Borders(8).Weight = 2
+sheet.range('B2:E5').api.Borders(9).Weight = 2
+sheet.range('B2:E5').api.Borders(10).Weight = 2
+sheet.range('B2:E5').api.Borders(11).Weight = 2
+sheet.range('B2:E5').api.Borders(12).Weight = 2
+
+
+
+
 ```
 
 
