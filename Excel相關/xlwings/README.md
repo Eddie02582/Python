@@ -29,6 +29,7 @@ add_book用來設定是否自動建立工作簿，True表示自動建立（預�
 ```python
 app1 = xw.App(visible = True, add_book = True) 
 app2 = xw.App(visible = True, add_book = False)
+
 ```
 左邊為app2,右邊為app1<br>
 
@@ -37,22 +38,32 @@ app2 = xw.App(visible = True, add_book = False)
 
 ### get pid
 ```python
-app.pid
+app1.pid
 ```
+
 ### set activate app
 
 ```python
-app.activate()
-app.activate(steal_focus=True
+app1.activate()
+app1.activate(steal_focus=True)
 ```
 當steal_focus=True時, Excel程式變成最前台的應用，並且把焦點從Python切換到Excel
 
 ### get current activate app
 ```python
-	xw.apps.active
+xw.apps.active
 ```
 
-## using app open new excel
+### show app books
+```python
+app2.books
+
+app1.activate()
+xw.books
+```
+
+
+### using app open new excel
 ```python 
 app =xw.App(visible = False,add_book = False)
 wb = app.books.add()
@@ -62,16 +73,27 @@ app.quit()
 ```
 
 
+
+
+
 ## Book
 
 ### create new book
 
+create book at app1
 ```python 
 #using app
-wb = app.books.add()
-#or 
-wb = xw.Book()
+wb = app1.books.add()
 ```
+create book at active app
+```python 
+#using app
+app2.activate()
+xw.Book()
+# or
+xw.books.add()
+```
+
 
 ### open exist book
 ```python    
@@ -79,6 +101,24 @@ wb = xw.Book("data.xls")
 #using app
 wb = app.books.open('data.xlsx')
 ``` 
+### get book
+
+get book from specific app
+```python    
+# get app1 book1
+wb = app1.books(1)
+wb = app1.books[0]
+
+wb = xw.books["Book1"]
+
+``` 
+get book from active app
+```python    
+app2.activate()
+wb = xw.books(2)
+``` 
+
+
 
 ## Sheet
 <a href = "https://docs.xlwings.org/en/stable/api.html#sheet">官網教學</a>
@@ -291,6 +331,9 @@ sheet1[1,0].value = [1,2,3,4,6]
 從指定位置寫入 col datas
 ```python
 sheet1.range('A2').value = [[1], [2],[3]]
+
+#or use transpose
+sheet1.range('A2').options(transpose=True).value=[1,2,3]
 ```
 
 從指定位置寫入多行,但是筆數不一樣
@@ -315,6 +358,7 @@ df = pd.DataFrame([[1,2], [3,4]], columns=['a', 'b'])
 
 #下面方法在write 時並不影響
 sheet1.range('A1').options(expand='table').value = df
+sheet.range('A1').value = df
 #sheet.range('A1').options().value
 sheet1.range('A1').expand('table').value = df #or just expand()
 
